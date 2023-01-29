@@ -10,25 +10,28 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed = 1.0f;
     float lifeTime = 0.0f;
     bool isAtPlace = false;
-    Rigidbody2D rb;
+
+    public float shootingCooldownTime = 1.0f;
+
+    public float shootingTimer = 0.0f;
+
+    public GameObject projectileObject;
     void Start()
     {
-        
+        shootingTimer = shootingCooldownTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isAtPlace)
-        {
-            lifeTime += Time.deltaTime;
-        }
-        if(lifeTime > lifeTimeLimit)
+        shootingTimer += Time.deltaTime;
+
+        if (lifeTime > lifeTimeLimit)
         {
             // explode
             Destroy(gameObject);
         }
-        rb = GetComponent<Rigidbody2D>();
+
         if (!isAtPlace)
         {
             Vector3 directionVector = positionToMove - transform.position;
@@ -41,5 +44,24 @@ public class EnemyBehaviour : MonoBehaviour
             transform.position = transform.position + directionVector * speed * Time.deltaTime;
         }
 
+        if (isAtPlace)
+        {
+            lifeTime += Time.deltaTime;
+            if (shootingTimer > shootingCooldownTime)
+            {
+                SpawnProjectile();
+                shootingTimer = 0.0f;
+            }
+        }
+
+    }
+
+    void SpawnProjectile()
+    {
+        Vector3 position = transform.GetChild(0).position;
+        GameObject gameObj = Instantiate(projectileObject);
+        gameObj.transform.position = position;
+        gameObj.GetComponent<ProjectileBehaviour>().direction = new Vector2(0.0f, -1.0f);
+        gameObj.GetComponent<ProjectileBehaviour>().targetTag = "Player";
     }
 }

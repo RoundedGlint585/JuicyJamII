@@ -7,12 +7,11 @@ public class ProjectileBehaviour : MonoBehaviour
 
     public Vector2 direction = new Vector2(0.0f, 1.0f);
     Rigidbody2D rb;
-    Collider2D collider;
+    public string targetTag = "Enemy";
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -24,7 +23,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.transform.tag == "Enemy")
+        if (collider.transform.tag == targetTag)
         {
             Destroy(collider.gameObject);
             Destroy(gameObject);

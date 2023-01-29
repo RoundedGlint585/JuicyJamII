@@ -10,6 +10,8 @@ public class ShootingScript : MonoBehaviour
     private float lastTimeShooted;
 
     public GameObject projectileObject;
+
+    float speedModifier = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +36,6 @@ public class ShootingScript : MonoBehaviour
         GameObject gameObj = Instantiate(projectileObject);
         gameObj.transform.position = position;
         gameObj.GetComponent<ProjectileBehaviour>().direction = new Vector2(0.0f, 1.0f);
+        gameObj.GetComponent<ProjectileBehaviour>().targetTag = "Enemy";
     }
 }
