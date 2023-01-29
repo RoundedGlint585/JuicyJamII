@@ -5,27 +5,49 @@ using UnityEngine;
 
 public class ShootingScript : MonoBehaviour
 {
-    public float cooldown = 0.2f;
+    public float shootingCooldown = 0.2f;
 
     private float lastTimeShooted;
 
     public GameObject projectileObject;
-
+    public AnimationCurve speedCurve;
     float speedModifier = 1.0f;
+
+    public float speedBoosterMaxTime = 10.0f;
+    public float speedBoosterTimer = 0.0f;
+
+    public float speedBoosterCooldownStartDelay = 1.0f; // delay before boosting lowering after mouse button unclicked
+    public float speedBoosterCooldownDelayTimer = 0.0f;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-        lastTimeShooted = cooldown + 0.1f;
+        lastTimeShooted = shootingCooldown + 0.1f;
     }
 
     // Update is called once per frame
     void Update()
     {
         lastTimeShooted += Time.deltaTime; 
-        if (Input.GetMouseButton(0) && lastTimeShooted > cooldown )
+        if (Input.GetMouseButton(0))
         {
-            lastTimeShooted = 0.0f;
-            CreateProjectiles();
+            speedBoosterCooldownDelayTimer = 0.0f;
+            speedBoosterTimer += Time.deltaTime;
+            if (lastTimeShooted > shootingCooldown)
+            {
+                lastTimeShooted = 0.0f;
+                CreateProjectiles();
+            }
+        } else {
+            speedBoosterCooldownDelayTimer += Time.deltaTime;
+            if (speedBoosterCooldownDelayTimer > speedBoosterCooldownStartDelay)
+            {
+                speedBoosterTimer -= Time.deltaTime;
+                speedBoosterTimer = Mathf.Max(speedBoosterTimer, 0.0f);
+
+            }
         }
 
     }
@@ -37,5 +59,9 @@ public class ShootingScript : MonoBehaviour
         gameObj.transform.position = position;
         gameObj.GetComponent<ProjectileBehaviour>().direction = new Vector2(0.0f, 1.0f);
         gameObj.GetComponent<ProjectileBehaviour>().targetTag = "Enemy";
+        float speedBoosterTimerScaled = Mathf.Clamp(speedBoosterTimer, 0, speedBoosterMaxTime);
+        speedBoosterTimerScaled /= speedBoosterMaxTime;
+        float speedMultiplier = speedCurve.Evaluate(speedBoosterTimerScaled);
+        gameObj.GetComponent<ProjectileBehaviour>().speedMultiplier = 1 + speedMultiplier;
     }
 }

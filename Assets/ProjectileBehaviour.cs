@@ -8,6 +8,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public Vector2 direction = new Vector2(0.0f, 1.0f);
     Rigidbody2D rb;
     public string targetTag = "Enemy";
+    public float speedMultiplier = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class ProjectileBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = direction;
+        rb.velocity = direction * speedMultiplier;
         
     }
 
