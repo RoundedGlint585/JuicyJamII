@@ -6,9 +6,9 @@ public class BackgroundScrolling : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float scrollingSpeed = 0.5f;
+    public float scrollingSpeed = 0.0f;
     Vector2 offset;
-    public AnimationCurve scrollingCurve;
+    private float scrollValue = 0.0f;
     void Start()
     {
         offset = GetComponent<SpriteRenderer>().material.mainTextureOffset;
@@ -19,15 +19,10 @@ public class BackgroundScrolling : MonoBehaviour
     {
         if (GameObject.FindGameObjectWithTag("Player"))
         {
-            float boosterMaxTime = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<ShootingScript>().speedBoosterMaxTime;
-            float boosterTimer = Mathf.Max(GameObject.FindGameObjectWithTag("Player").transform.GetComponent<ShootingScript>().speedBoosterTimer, 0);
-            boosterTimer = Mathf.Min(boosterMaxTime, boosterTimer);
-
-            float boosterCoefficient = boosterTimer / boosterMaxTime;
-
-            float y = Mathf.Repeat(Time.time * (scrollingSpeed), 1);
+            float boosterValue = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<ShootingScript>().GetBoostingLinearlyScaledValue();
+            scrollValue = Mathf.Repeat(scrollValue + Time.deltaTime * (scrollingSpeed + boosterValue), 1);
             // to do: scalable scrolling
-            Vector2 scrolledOffset = new Vector2(offset.x, y);
+            Vector2 scrolledOffset = new Vector2(offset.x, scrollValue);
             GetComponent<SpriteRenderer>().material.mainTextureOffset = scrolledOffset;
         }
     }
