@@ -134,7 +134,7 @@ MonoBehaviour:
   lifeTimeLimit: 10
   positionToMove: {x: 0, y: 0.8, z: 2}
   speed: 1
-  shootingCooldownTime: 1
+  shootingCooldownTime: 0.2
   shootingTimer: 0
   projectileObject: {fileID: 194417941206661409, guid: 01c3d00b43d68fe46b732e470a09194f, type: 3}
 --- !u!50 &412067053563552351

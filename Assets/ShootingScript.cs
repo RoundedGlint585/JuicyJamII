@@ -59,9 +59,21 @@ public class ShootingScript : MonoBehaviour
         gameObj.transform.position = position;
         gameObj.GetComponent<ProjectileBehaviour>().direction = new Vector2(0.0f, 1.0f);
         gameObj.GetComponent<ProjectileBehaviour>().targetTag = "Enemy";
+        gameObj.GetComponent<ProjectileBehaviour>().speedMultiplier = 1 + GetBoostingValue();
+    }
+
+
+    // value on animation curve
+    public float GetBoostingValue()
+    {
+        float speedMultiplier = speedCurve.Evaluate(GetBoostingLinearlyScaledValue());
+        return speedMultiplier;
+    }
+    //value scaled from 0 to 1
+    public float GetBoostingLinearlyScaledValue()
+    {
         float speedBoosterTimerScaled = Mathf.Clamp(speedBoosterTimer, 0, speedBoosterMaxTime);
         speedBoosterTimerScaled /= speedBoosterMaxTime;
-        float speedMultiplier = speedCurve.Evaluate(speedBoosterTimerScaled);
-        gameObj.GetComponent<ProjectileBehaviour>().speedMultiplier = 1 + speedMultiplier;
+        return speedBoosterTimerScaled;
     }
 }

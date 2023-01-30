@@ -58,10 +58,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void SpawnProjectile()
     {
+        float boostingValue = GameObject.FindGameObjectsWithTag("Player")[0].transform.GetComponent<ShootingScript>().GetBoostingValue();
         Vector3 position = transform.GetChild(0).position;
         GameObject gameObj = Instantiate(projectileObject);
         gameObj.transform.position = position;
         gameObj.GetComponent<ProjectileBehaviour>().direction = new Vector2(0.0f, -1.0f);
+        gameObj.GetComponent<ProjectileBehaviour>().speedMultiplier = 1 + boostingValue;
         gameObj.GetComponent<ProjectileBehaviour>().targetTag = "Player";
     }
 }
