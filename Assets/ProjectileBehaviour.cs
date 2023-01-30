@@ -9,6 +9,7 @@ public class ProjectileBehaviour : MonoBehaviour
     Rigidbody2D rb;
     public string targetTag = "Enemy";
     public float speedMultiplier = 1.0f;
+    public int damageValue = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,20 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (collider.transform.tag == targetTag)
         {
-            Destroy(collider.gameObject);
+            HealthBehaviour health;
+            collider.transform.gameObject.TryGetComponent<HealthBehaviour>(out health);
+            if (health != null)
+            {
+                health.Hit(damageValue);
+                if (health.IsDead())
+                {
+                    Destroy(collider.gameObject);
+                }
+            }
+            else
+            {
+                Destroy(collider.gameObject);
+            }
             Destroy(gameObject);
         }
     }

@@ -15,7 +15,10 @@ public class SliderScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float boostingValue = GameObject.FindGameObjectsWithTag("Player")[0].transform.GetComponent<ShootingScript>().GetBoostingLinearlyScaledValue();
-        slider.value = boostingValue;
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            float boostingValue = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<ShootingScript>().GetBoostingLinearlyScaledValue();
+            slider.value = boostingValue;
+        }
     }
 }

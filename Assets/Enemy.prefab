@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 412067053563552348}
   - component: {fileID: 412067053563552351}
   - component: {fileID: 412067053563552350}
+  - component: {fileID: 6102347647736952056}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -134,7 +135,7 @@ MonoBehaviour:
   lifeTimeLimit: 10
   positionToMove: {x: 0, y: 0.8, z: 2}
   speed: 1
-  shootingCooldownTime: 0.2
+  shootingCooldownTime: 2
   shootingTimer: 0
   projectileObject: {fileID: 194417941206661409, guid: 01c3d00b43d68fe46b732e470a09194f, type: 3}
 --- !u!50 &412067053563552351
@@ -184,3 +185,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
+--- !u!114 &6102347647736952056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412067053563552291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5408c36e3aece664cb89fd05907a5c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthCount: 3
