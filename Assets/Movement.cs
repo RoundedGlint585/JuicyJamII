@@ -10,17 +10,34 @@ public class Movement : MonoBehaviour
     public float speed = 1.0f;
 
     public float offset = 0.01f;
+
+    private Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
+    private float tilt = 0f;
+    public float tiltSpeed = 5;
+    public float tiltReturnSpeed = 1;
+    void UpdateTiltAnimation(float horizontalInput)
+    {
+        tilt = Mathf.MoveTowards(tilt, 0, Time.deltaTime * tiltReturnSpeed);
+        tilt += horizontalInput * Time.deltaTime * tiltSpeed;
+        tilt = Mathf.Clamp(tilt, -1, 1);
+
+        animator.SetFloat("Horizontal", tilt);
+    }
     // Update is called once per frame
     void Update()
     {
         Vector2 position = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().WorldToViewportPoint(transform.position);
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        UpdateTiltAnimation(horizontal);
+
         if((position.x < 0.0f + offset && horizontal < 0.0f) || (position.x > 1.0f - offset && horizontal > 0.0f))
         {
             
