@@ -463,6 +463,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealthCount: 3
+  invinsibleAfterHitTime: 5
+  needInvinsibilityOnHit: 1
+  lastTimeHit: 3.4028235e+38
 --- !u!1 &517215955
 GameObject:
   m_ObjectHideFlags: 0
