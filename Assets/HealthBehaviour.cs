@@ -6,10 +6,11 @@ public class HealthBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public int healthCount = 3;
+    private int healthCount = 3;
+    public int maxHealthCount = 3;
     void Start()
     {
-        
+        healthCount = maxHealthCount;
     }
 
     // Update is called once per frame
@@ -17,6 +18,8 @@ public class HealthBehaviour : MonoBehaviour
     {
         
     }
+
+    
 
     public void Hit(int hitCount) {
         healthCount -= hitCount;
@@ -26,5 +29,14 @@ public class HealthBehaviour : MonoBehaviour
     public bool IsDead()
     {
         return healthCount == 0;
+    }
+
+    public int GetCurrentHealthCount()
+    {
+        return healthCount;
+    }
+    public int GetMaxHealthCount()
+    {
+        return maxHealthCount;
     }
 }

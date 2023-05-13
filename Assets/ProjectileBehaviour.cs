@@ -23,25 +23,34 @@ public class ProjectileBehaviour : MonoBehaviour
         
     }
 
+    void DestroyProjectile()
+    {
+        Destroy(gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.transform.tag == targetTag)
+        if (collider.transform.CompareTag(targetTag))
         {
-            HealthBehaviour health;
-            collider.transform.gameObject.TryGetComponent<HealthBehaviour>(out health);
+            collider.transform.gameObject.TryGetComponent<HealthBehaviour>(out HealthBehaviour health);
+            collider.transform.gameObject.TryGetComponent<EnemyBehaviour>(out EnemyBehaviour enemy);
             if (health != null)
             {
                 health.Hit(damageValue);
                 if (health.IsDead())
                 {
-                    Destroy(collider.gameObject);
+                    if(targetTag != "Player")
+                    {
+                        enemy.DestroyEnemy(true);
+                    }
+
                 }
             }
             else
             {
-                Destroy(collider.gameObject);
+                //ds: was basically fix for player with no health component
+                enemy.DestroyEnemy();
             }
-            Destroy(gameObject);
+            DestroyProjectile();
         }
     }
     private void OnBecameInvisible()

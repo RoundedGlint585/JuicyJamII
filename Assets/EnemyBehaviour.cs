@@ -10,15 +10,28 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed = 1.0f;
     float lifeTime = 0.0f;
     bool isAtPlace = false;
-
+    public int pointsForKill = 10;
     public float shootingCooldownTime = 1.0f;
 
     public float shootingTimer = 0.0f;
 
     public GameObject projectileObject;
+
+    public PlayerScore playerScore;
     void Start()
     {
         shootingTimer = shootingCooldownTime;
+
+        playerScore = GameObject.FindGameObjectsWithTag("Player")[0].transform.GetComponent<PlayerScore>();
+    }
+
+    public void DestroyEnemy(bool needAddPoints = false)
+    {
+        if (needAddPoints)
+        {
+            playerScore.AddPoints(pointsForKill);
+        }
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
@@ -29,7 +42,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (lifeTime > lifeTimeLimit)
         {
             // explode
-            Destroy(gameObject);
+            // (ds): do we need to add score for this one?
+            DestroyEnemy();
         }
 
         if (!isAtPlace)
