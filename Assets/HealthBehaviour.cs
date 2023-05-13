@@ -8,9 +8,9 @@ public class HealthBehaviour : MonoBehaviour
 
     private int healthCount = 3;
     public int maxHealthCount = 3;
-    private bool isInvinsible = false;
+    private bool isInvincible = false;
 
-    public float invinsibleAfterHitTime = 2.0f;
+    public float invincibleAfterHitTime = 2.0f;
     public bool needInvinsibilityOnHit = false;
     public float lastTimeHit = float.MaxValue;
     void Start()
@@ -21,12 +21,12 @@ public class HealthBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isInvinsible)
+        if (isInvincible)
         {
             lastTimeHit += Time.deltaTime;
-            if(lastTimeHit > invinsibleAfterHitTime)
+            if(lastTimeHit > invincibleAfterHitTime)
             {
-                isInvinsible = false;
+                isInvincible = false;
             }
         }
     }
@@ -35,14 +35,16 @@ public class HealthBehaviour : MonoBehaviour
 
     public void Hit(int hitCount) {
 
-        if (!isInvinsible)
+        if (!isInvincible)
         {
             healthCount -= hitCount;
             healthCount = healthCount > 0 ? healthCount : 0;
+            
             if (needInvinsibilityOnHit)
             {
+                GetComponent<Movement>().MoveToTheSpawnPoint(); // should be ok as far as only player invincible
                 lastTimeHit = 0.0f;
-                isInvinsible = true;
+                isInvincible = true;
             }
         }
 
@@ -64,6 +66,15 @@ public class HealthBehaviour : MonoBehaviour
 
     public bool IsInvincible()
     {
-        return isInvinsible;
+        return isInvincible;
+    }
+
+    public float GetInvincibilityProgress()
+    {
+        if (isInvincible)
+        {
+            return Mathf.Clamp01(lastTimeHit / invincibleAfterHitTime);
+        }
+        return 1.0f; 
     }
 }

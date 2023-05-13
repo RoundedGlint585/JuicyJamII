@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ProjectileType { basic, autoTargeting };
 public class ProjectileBehaviour : MonoBehaviour
 {
 

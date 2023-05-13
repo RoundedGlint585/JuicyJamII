@@ -74,4 +74,9 @@ public class Movement : MonoBehaviour
         Vector3 direction = new Vector3(horizontal, vertical, 0);
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
     }
+
+    public void MoveToTheSpawnPoint()
+    {
+        GetComponent<Rigidbody2D>().position = new Vector2(0.0f, 0.0f);
+    }
 }
