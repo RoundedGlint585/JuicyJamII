@@ -481,6 +481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441baf3e2aefeba4a94bb1ce7a5ac8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleSystemStartOffset: -0.15
 --- !u!199 &421304580
 ParticleSystemRenderer:
   serializedVersion: 6
