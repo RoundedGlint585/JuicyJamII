@@ -109,8 +109,8 @@ SpriteRenderer:
   m_SortingLayerID: -176257903
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.0037735105, g: 0.1535553, b: 1, a: 1}
+  m_Sprite: {fileID: -1884108932, guid: fdd0cabdff7251d4e8ae311fbcd03743, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,8 +135,15 @@ MonoBehaviour:
   lifeTimeLimit: 10
   positionToMove: {x: 0, y: 0.8, z: 2}
   speed: 1
+  pointsForKill: 10
   shootingCooldownTime: 2
-  shootingTimer: 0
+  projectileType: 2
+  projectileCount: 3
+  basicProjectileDirection: {x: 0, y: -1, z: 0}
+  minAngle: 5
+  maxAngle: 20
+  projectileCountInCaseOfExplosionProjectile: 3
+  explosiveProjectileLifeTime: 1
   projectileObject: {fileID: 194417941206661409, guid: 01c3d00b43d68fe46b732e470a09194f, type: 3}
 --- !u!50 &412067053563552351
 Rigidbody2D:
@@ -174,9 +181,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -197,4 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5408c36e3aece664cb89fd05907a5c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthCount: 3
+  maxHealthCount: 3
+  invincibleAfterHitTime: 2
+  needInvinsibilityOnHit: 0
+  lastTimeHit: 3.4028235e+38
