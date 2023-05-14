@@ -105,6 +105,9 @@ Shader "Hidden/TextCore/Sprite"
                 if (IN.texcoord.y > _LoadingProgress) {
                     color.a = 0.0;
                 }
+                else if(IN.texcoord.y > _LoadingProgress - 0.1 && IN.texcoord.y < 0.91 ) {
+                    color.rgb = float3(1.0, 1.0, 1.0);
+                }
                 return color;
             }
         ENDCG
