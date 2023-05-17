@@ -20,10 +20,15 @@ public class ProjectileBehaviour : MonoBehaviour
     public bool playerSpeedApplied = false;
     private bool directionFixed = false;
 
+    public float autoTargetingForce = 0.2f;
+
     //explosion projectile behaviour
     public int projectileCountAfterExplosion = 0;
     public float explosionTime = 3.0f;
+    public GameObject projectileToSpawn;
     private float lifeTime = 0.0f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
             Vector3 directionCorrection = (playerPosition - transform.position).normalized;
             if (transform.position.y > playerPosition.y && !directionFixed)
             {
-                direction = (direction + 0.2f * new Vector2(directionCorrection.x, directionCorrection.y)).normalized;
+                direction = (direction + autoTargetingForce * new Vector2(directionCorrection.x, directionCorrection.y)).normalized;
                 return direction;
             }
             else
@@ -107,7 +112,7 @@ public class ProjectileBehaviour : MonoBehaviour
         float step = 360.0f / projectileCountAfterExplosion;
         Quaternion rotStep = Quaternion.Euler(0, 0, step);
         Vector3 updatedDirection = new Vector3(0, 1, 0);
-        GameObject gameObj = Instantiate(gameObject);
+        GameObject gameObj = Instantiate(projectileToSpawn);
         ProjectileBehaviour projectile = gameObj.GetComponent<ProjectileBehaviour>();
         projectile.type = ProjectileType.basic;
         projectile.direction = updatedDirection;
