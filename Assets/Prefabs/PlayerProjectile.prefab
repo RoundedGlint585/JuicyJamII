@@ -103,6 +103,13 @@ MonoBehaviour:
   targetTag: Enemy
   speedMultiplier: 10
   damageValue: 1
+  player: {fileID: 0}
+  type: 0
+  playerSpeedApplied: 0
+  autoTargetingForce: 0.2
+  projectileCountAfterExplosion: 0
+  explosionTime: 3
+  projectileToSpawn: {fileID: 194417941206661409}
 --- !u!50 &385723069559092070
 Rigidbody2D:
   serializedVersion: 4
